@@ -113,7 +113,7 @@ export default {
   },
   setup() {
       // Зачем тебе столько ref/reactive ?
-      // Реактивность сохраниться, если в data засунуть переменную loading и напрямую ей задавать loading = true
+      // Реактивность сохранится, если в data засунуть переменную loading и напрямую ей задавать loading = true
       // Кажется, это может быть сложнее для понимания
       const loading = ref(true);
       const username = ref("");
@@ -121,7 +121,7 @@ export default {
       const avatar_url = ref("");
 
       // А почему ты все в setup загоняешь?
-      // Ведь не все функции нужны пи установке? Например, updateProfile и signOut можно засунуть в methods
+      // Ведь не все функции нужны при установке? Например, updateProfile и signOut можно засунуть в methods
       async function getProfile() {
           try {
               loading.value = true;
