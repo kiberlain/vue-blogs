@@ -29,6 +29,7 @@ export const routes = [
     component: Category,
     meta: { title: "Категория" },
   },
+    // здесь наверное страница с постами у любого пользователя? Тогда наверное будет какой-то id поста или название.
   {
     path: "/post",
     component: Post,

@@ -3,6 +3,9 @@
     <h1>Категория ReactJS</h1>
   </header>
   <ul class="articles-list">
+      <!-- Здесь как я понимаю будет вывод какой-то информации?
+      можно подготовить один шаблон для вывода и вынести информацию в articleData и выводить через v-for
+       -->
     <li>
       <article class="article">
         <p class="article-header">

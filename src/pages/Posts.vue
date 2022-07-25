@@ -3,6 +3,7 @@
     <h1>Посты всех пользователей</h1>
   </header>
   <ul class="articles-list">
+      <!-- также выводила бы через v-for -->
     <li>
       <article class="article">
         <p class="article-header">

@@ -60,7 +60,6 @@ export default {
         if (!files.value || files.value.length === 0) {
           throw new Error("Необходимо выбрать изображение для загрузки");
         }
-
         const file = files.value[0];
         const fileExt = file.name.split(".").pop();
         const fileName = `${Math.random()}.${fileExt}`;
