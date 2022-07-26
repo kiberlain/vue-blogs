@@ -6,6 +6,10 @@
     <div class="profile-fields">
       <div class="profile-row">
         <label for="email">Email</label>
+          <!-- Не меняла бы значение в store напрямую (store = reactive)
+          В Vue2 была бы ошибкой. Но Vue3 это можно сделать. Может лучше использовать тогда Vuex,
+          и править через mutation?
+          -->
         <input id="email" type="text" :value="store.user.email" disabled />
       </div>
       <div class="profile-row">
@@ -108,91 +112,100 @@ export default {
     Avatar,
   },
   setup() {
-    const loading = ref(true);
-    const username = ref("");
-    const info = ref("");
-    const avatar_url = ref("");
+      // Зачем тебе столько ref/reactive ?
+      // Реактивность сохранится, если в data засунуть переменную loading и напрямую ей задавать loading = true
+      // Кажется, это может быть сложнее для понимания
+      const loading = ref(true);
+      const username = ref("");
+      const info = ref("");
+      const avatar_url = ref("");
 
-    async function getProfile() {
-      try {
-        loading.value = true;
-        store.user = supabase.auth.user();
+      // А почему ты все в setup загоняешь?
+      // Ведь не все функции нужны при установке? Например, updateProfile и signOut можно засунуть в methods
+      async function getProfile() {
+          try {
+              loading.value = true;
+              store.user = supabase.auth.user();
 
-        let { data, error, status } = await supabase
-          .from("profiles")
-          .select(`username, info, avatar_url`)
-          .eq("id", store.user.id)
-          .single();
+              let {data, error, status} = await supabase
+                  .from("profiles")
+                  .select(`username, info, avatar_url`)
+                  .eq("id", store.user.id)
+                  .single();
 
-        if (error && status !== 406) throw error;
+              if (error && status !== 406) throw error;
 
-        if (data) {
-          username.value = data.username;
-          info.value = data.info;
-          avatar_url.value = data.avatar_url;
-        }
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        loading.value = false;
+              if (data) {
+                  username.value = data.username;
+                  info.value = data.info;
+                  avatar_url.value = data.avatar_url;
+              }
+          } catch (error) {
+              alert(error.message);
+          } finally {
+              loading.value = false;
+          }
       }
-    }
 
-    async function updateProfile() {
-      try {
-        loading.value = true;
-        store.user = supabase.auth.user();
-
-        const updates = {
-          id: store.user.id,
-          username: username.value,
-          info: info.value,
-          avatar_url: avatar_url.value,
-          updated_at: new Date(),
-        };
-
-        let { error } = await supabase.from("profiles").upsert(updates, {
-          returning: "minimal",
-        });
-
-        if (error) throw error;
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        loading.value = false;
+      async function signOut() {
+          try {
+              loading.value = true;
+              let {error} = await supabase.auth.signOut();
+              if (error) throw error;
+          } catch (error) {
+              alert(error.message);
+          } finally {
+              loading.value = false;
+          }
       }
-    }
 
-    async function signOut() {
-      try {
-        loading.value = true;
-        let { error } = await supabase.auth.signOut();
-        if (error) throw error;
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        loading.value = false;
-      }
-    }
+      onMounted(() => {
+          getProfile();
+      });
 
-    onMounted(() => {
-      getProfile();
-    });
-
-    return {
-      store,
-      loading,
-      username,
-      info,
-      avatar_url,
-      updateProfile,
-      signOut,
-    };
+      return {
+          store,
+          loading,
+          username,
+          info,
+          avatar_url,
+          signOut,
+      };
   },
+    methods: {
+        async updateProfile() {
+            try {
+                loading.value = true;
+                store.user = supabase.auth.user();
+
+                const updates = {
+                    id: store.user.id,
+                    username: username.value,
+                    info: info.value,
+                    avatar_url: avatar_url.value,
+                    updated_at: new Date(),
+                };
+
+                let { error } = await supabase.from("profiles").upsert(updates, {
+                    returning: "minimal",
+                });
+
+                if (error) throw error;
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                loading.value = false;
+            }
+        }
+    }
 };
 </script>
 
 <style scoped>
+/*
+ если тебе удобнее можно же добавить библиотеку в scss
+ Тогда будет видна каскадность
+ */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
