@@ -88,7 +88,6 @@ export default {
       uploading,
       src,
       files,
-
       uploadAvatar,
     };
   },

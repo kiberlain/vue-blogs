@@ -1,9 +1,24 @@
+<style scoped>
+.articles-list {
+  margin: 0;
+}
+.articles-list li {
+  padding: 1rem 0;
+}
+.articles-list li + li {
+  border-top: 1px solid lightblue;
+}
+.articles-list li::before {
+  display: none;
+}
+</style>
+
 <template>
   <header>
     <h1>Категория ReactJS</h1>
   </header>
   <ul class="articles-list">
-      <!-- Здесь как я понимаю будет вывод какой-то информации?
+    <!-- Здесь как я понимаю будет вывод какой-то информации?
       можно подготовить один шаблон для вывода и вынести информацию в articleData и выводить через v-for
        -->
     <li>
@@ -48,18 +63,3 @@
     </li>
   </ul>
 </template>
-
-<style scoped>
-.articles-list {
-  margin: 0;
-}
-.articles-list li {
-  padding: 1rem 0;
-}
-.articles-list li + li {
-  border-top: 1px solid lightblue;
-}
-.articles-list li::before {
-  display: none;
-}
-</style>

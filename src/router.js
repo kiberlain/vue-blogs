@@ -1,11 +1,9 @@
 import Home from "./pages/Home.vue";
-import Posts from "./pages/Posts.vue";
-import Post from "./pages/Post.vue";
-import Users from "./pages/Users.vue";
-import CreateCategory from "./pages/CreateCategory.vue";
-import Category from "./pages/Category.vue";
-import CreatePost from "./pages/CreatePost.vue";
-import EditPost from "./pages/EditPost.vue";
+
+
+import AllPosts from "./pages/info-posts/InfoPosts.vue"
+import Category from "./pages/category/Category.vue"
+
 import NotFound from "./pages/NotFound.vue";
 
 export const routes = [
@@ -15,49 +13,19 @@ export const routes = [
     meta: { title: "Главная" },
   },
   {
-    path: "/user",
-    component: Home,
-    meta: { title: "Страница юзера" },
-  },
-  {
-    path: "/all",
-    component: Posts,
-    meta: { title: "Блог" },
+    path: "/all-posts",
+    component: AllPosts,
+    meta: { title: "Лента постов" },
   },
   {
     path: "/category",
     component: Category,
     meta: { title: "Категория" },
   },
-    // здесь наверное страница с постами у любого пользователя? Тогда наверное будет какой-то id поста или название.
   {
-    path: "/post",
-    component: Post,
-    meta: { title: "Пост" },
-  },
-  {
-    path: "/users",
-    component: Users,
-    meta: { title: "Список мользователей" },
-  },
-  {
-    path: "/create-category",
-    component: CreateCategory,
-    meta: { title: "Создание новой категории" },
-  },
-  {
-    path: "/create-post",
-    component: CreatePost,
-    meta: { title: "Новый пост" },
-  },
-  {
-    path: "/edit-post",
-    component: EditPost,
-    meta: { title: "Изменение поста" },
-  },
-  {
-    path: "/:path(.*)",
-    component: NotFound,
-    meta: { title: "Упс!" },
-  },
+    path: "/category/:id",
+    component: Category,
+    meta: { title: "Категория" },
+  }
 ];
+
