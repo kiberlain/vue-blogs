@@ -1,8 +1,8 @@
 <script>
-import { store } from "../store";
-import { supabase } from "../supabase";
-import Auth from "../components/Auth.vue";
-import Profile from "../components/Profile.vue";
+import { store } from "../../store";
+import { supabase } from "../../supabase";
+import Auth from "../../components/Auth.vue";
+import Profile from "../../components/Profile.vue";
 
 export default {
   components: {
