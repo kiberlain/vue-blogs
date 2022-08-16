@@ -1,17 +1,19 @@
 <template>
   <h1>Все посты - posts.vue</h1>
 
-  {{ posts }}
+
 </template>
 
 
 <script>
-import ApiService from "../../service/ApiService";
+
 import { supabase } from "../../supabase";
+import postsApi from "../../service/postsApi";
+
 
 export default {
   setup() {
-    ApiService.getAllPosts();
-  },
+    postsApi.load()
+  }
 };
 </script>
